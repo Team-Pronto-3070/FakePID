@@ -8,7 +8,6 @@
 package org.usfirst.frc.team3070.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -21,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends IterativeRobot implements Pronstants{
 	Modules modules;
 	Drive drive;
+	double p, i, d;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -29,11 +29,14 @@ public class Robot extends IterativeRobot implements Pronstants{
 	public void robotInit() {
 		modules = new Modules();
 		drive = new Drive(modules.TalRM, modules.TalRF, modules.TalLM, modules.TalLF);
+		SmartDashboard.putNumber("P", 0);
+		SmartDashboard.putNumber("I", 0);
+		SmartDashboard.putNumber("D", 0);
 	}
 
 	@Override
 	public void autonomousInit() {
-	
+		
 	}
 
 	/**
@@ -41,7 +44,10 @@ public class Robot extends IterativeRobot implements Pronstants{
 	 */
 	@Override
 	public void autonomousPeriodic() {
-	
+		p = SmartDashboard.getNumber("P", 0);
+		i = SmartDashboard.getNumber("I", 0);
+		d = SmartDashboard.getNumber("D", 0);
+		
 	}
 
 	/**
