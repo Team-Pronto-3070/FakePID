@@ -12,11 +12,14 @@ public class Drive implements Pronstants {
 		this.TalRF = TalRF;
 		this.TalLM = TalLM;
 		this.TalLF = TalLF;
+		
+		setPID(0.1,0,0);
 	}
 	
 //	public void
 	public int initEncL = 0;
 	public int initEncR = 0; 
+	
 	// sets right
 	public void setRight(double amountR) {
 		TalRM.set(ControlMode.PercentOutput, -amountR);
@@ -43,5 +46,49 @@ public class Drive implements Pronstants {
 	// gets the right encoder value
 	public int getRightEnc() {
 		return TalRM.getSelectedSensorPosition(0)-initEncR;
+	}
+	
+	public void setPID(double p, double i, double d) {
+		TalRM.config_kF(0, 0, 0);
+		TalRM.config_kP(0, p, 0);
+		TalRM.config_kI(0, i, 0);
+		TalRM.config_kD(0, d, 0);
+		
+		TalRF.config_kF(0, 0, 0);
+		TalRF.config_kP(0, p, 0);
+		TalRF.config_kI(0, i, 0);
+		TalRF.config_kD(0, d, 0);
+		
+		TalLM.config_kF(0, 0, 0);
+		TalLM.config_kP(0, p, 0);
+		TalLM.config_kI(0, i, 0);
+		TalLM.config_kD(0, d, 0);
+		
+		TalLF.config_kF(0, 0, 0);
+		TalLF.config_kP(0, p, 0);
+		TalLF.config_kI(0, i, 0);
+		TalLF.config_kD(0, d, 0);
+	}
+
+	public void configOutputs() {
+		TalRM.configNominalOutputForward(0, 0);
+		TalRM.configNominalOutputReverse(0, 0);
+		TalRM.configPeakOutputForward(1, 0);
+		TalRM.configPeakOutputReverse(-1, 0);
+		
+		TalRF.configNominalOutputForward(0, 0);
+		TalRF.configNominalOutputReverse(0, 0);
+		TalRF.configPeakOutputForward(1, 0);
+		TalRF.configPeakOutputReverse(-1, 0);
+
+		TalLF.configNominalOutputForward(0, 0);
+		TalLF.configNominalOutputReverse(0, 0);
+		TalLF.configPeakOutputForward(1, 0);
+		TalLF.configPeakOutputReverse(-1, 0);
+		
+		TalLM.configNominalOutputForward(0, 0);
+		TalLM.configNominalOutputReverse(0, 0);
+		TalLM.configPeakOutputForward(1, 0);
+		TalLM.configPeakOutputReverse(-1, 0);
 	}
 }

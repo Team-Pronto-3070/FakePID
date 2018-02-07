@@ -32,26 +32,6 @@ public class Modules implements Pronstants {
 		TalLM.setInverted(true);	
 		TalLF.setInverted(true);
 
-		TalRM.config_kF(0, 0.1, 0);
-		TalRM.config_kP(0, 0.1, 0);
-		TalRM.config_kI(0, 0, 0);
-		TalRM.config_kD(0, 0, 0);
-		
-		TalRF.config_kF(0, 0.1, 0);
-		TalRF.config_kP(0, 0.1, 0);
-		TalRF.config_kI(0, 0, 0);
-		TalRF.config_kD(0, 0, 0);
-		
-		TalLM.config_kF(0, 0.1, 0);
-		TalLM.config_kP(0, 0.1, 0);
-		TalLM.config_kI(0, 0, 0);
-		TalLM.config_kD(0, 0, 0);
-		
-		TalLF.config_kF(0, 0.1, 0);
-		TalLF.config_kP(0, 0.1, 0);
-		TalLF.config_kI(0, 0, 0);
-		TalLF.config_kD(0, 0, 0);
-
 		TalRM.setSensorPhase(true);
 		TalRF.setSensorPhase(true);
 		TalLM.setSensorPhase(true);
