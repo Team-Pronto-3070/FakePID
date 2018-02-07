@@ -13,7 +13,10 @@ public class Drive implements Pronstants {
 		this.TalLM = TalLM;
 		this.TalLF = TalLF;
 	}
-
+	
+//	public void
+	public int initEncL = 0;
+	public int initEncR = 0; 
 	// sets right
 	public void setRight(double amountR) {
 		TalRM.set(ControlMode.PercentOutput, -amountR);
@@ -34,11 +37,11 @@ public class Drive implements Pronstants {
 
 	// gets the left encoder value
 	public int getLeftEnc() {
-		return TalLM.getSelectedSensorPosition(0);
+		return TalLM.getSelectedSensorPosition(0)-initEncL;
 	}
 
 	// gets the right encoder value
 	public int getRightEnc() {
-		return TalRM.getSelectedSensorPosition(0);
+		return TalRM.getSelectedSensorPosition(0)-initEncR;
 	}
 }
