@@ -7,8 +7,6 @@
 
 package org.usfirst.frc.team3070.robot;
 
-import java.util.ResourceBundle.Control;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
