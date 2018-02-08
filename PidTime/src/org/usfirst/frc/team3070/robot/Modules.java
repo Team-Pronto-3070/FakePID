@@ -29,11 +29,11 @@ public class Modules implements Pronstants {
 	
 		TalRM.setInverted(false);
 		TalRF.setInverted(false);
-		TalLM.setInverted(true);	
-		TalLF.setInverted(true);
+		TalLM.setInverted(false);	
+		TalLF.setInverted(false);
 
-		TalRM.setSensorPhase(true);
-		TalRF.setSensorPhase(true);
+		TalRM.setSensorPhase(false);
+		TalRF.setSensorPhase(false);
 		TalLM.setSensorPhase(true);
 		TalLF.setSensorPhase(true);
 		}

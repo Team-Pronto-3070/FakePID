@@ -72,10 +72,14 @@ public class Robot extends IterativeRobot implements Pronstants{
 	public void teleopPeriodic() {
 		dist = SmartDashboard.getNumber("Dist", 0);
 		angle = SmartDashboard.getNumber("Angle", 0);
-		
+		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
+		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
+		SmartDashboard.putNumber("EncR", drive.getRightEnc());
 		p = SmartDashboard.getNumber("P", 0);
 		i = SmartDashboard.getNumber("I", 0);
 		d = SmartDashboard.getNumber("D", 0);
+		
+		SmartDashboard.putStringArray("hello", new String[] {"array", "hello again", "some other thing"});
 		
 		drive.setPID(p, i, d);
 		if(modules.xbox.getRawButton(1)) {
@@ -86,6 +90,13 @@ public class Robot extends IterativeRobot implements Pronstants{
 		}
 		if(modules.xbox.getRawButton(3)) {
 			purpose = 0;
+		}
+		if(modules.xbox.getRawButton(4)) {
+			drive.initEncL = modules.TalLM.getSelectedSensorPosition(0);
+			drive.initEncR = modules.TalRM.getSelectedSensorPosition(0);
+		}
+		if(modules.xbox.getRawButton(6)) {
+			purpose = 3;
 		}
 		
 		SmartDashboard.putNumber("Mode: ", purpose);
@@ -103,21 +114,25 @@ public class Robot extends IterativeRobot implements Pronstants{
 		case 2:
 			if(angle > 0&&modules.gyro.getHeading() <= angle) {
 				modules.TalRM.set(ControlMode.Velocity, -Pronstants.Vel_100ms);
-				modules.TalRF.set(ControlMode.Velocity, -Pronstants.Vel_100ms);
-				modules.TalLF.set(ControlMode.Velocity, Pronstants.Vel_100ms);
+				modules.TalRF.set(ControlMode.Follower, PORT_RM);
 				modules.TalLM.set(ControlMode.Velocity, Pronstants.Vel_100ms);
+				modules.TalLF.set(ControlMode.Follower, PORT_LM);
 			}
 			else if(angle < 0&&modules.gyro.getHeading() >= angle){
 				modules.TalRM.set(ControlMode.Velocity, Pronstants.Vel_100ms);
-				modules.TalRF.set(ControlMode.Velocity, Pronstants.Vel_100ms);
-				modules.TalLF.set(ControlMode.Velocity, -Pronstants.Vel_100ms);
+				modules.TalRF.set(ControlMode.Follower, PORT_RM);
 				modules.TalLM.set(ControlMode.Velocity, -Pronstants.Vel_100ms);
+				modules.TalLF.set(ControlMode.Follower, PORT_LM);
 			}
 			else {
 				drive.stop();
 			}
 			break;
+		case 3: 
+			drive.setLeft(0.5);
+			drive.setRight(0.5);
 		}
+		
 	}
 
 	/**
@@ -125,5 +140,15 @@ public class Robot extends IterativeRobot implements Pronstants{
 	 */
 	@Override
 	public void testPeriodic() {
+		dist = SmartDashboard.getNumber("Dist", 0);
+		angle = SmartDashboard.getNumber("Angle", 0);
+		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
+		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
+		SmartDashboard.putNumber("EncR", drive.getRightEnc());
+		p = SmartDashboard.getNumber("P", 0);
+		i = SmartDashboard.getNumber("I", 0);
+		d = SmartDashboard.getNumber("D", 0);
+		//String[] test = new String[] {"array", "hello again", "some other thing"};
+		//SmartDashboard.putStringArray("hello", test);
 	}
 }

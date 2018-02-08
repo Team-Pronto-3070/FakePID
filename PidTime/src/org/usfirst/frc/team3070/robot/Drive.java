@@ -49,25 +49,25 @@ public class Drive implements Pronstants {
 	}
 	
 	public void setPID(double p, double i, double d) {
-		TalRM.config_kF(0, 0, 0);
-		TalRM.config_kP(0, p, 0);
-		TalRM.config_kI(0, i, 0);
-		TalRM.config_kD(0, d, 0);
+		TalRM.config_kF(0, 0, 10);
+		TalRM.config_kP(0, p, 10);
+		TalRM.config_kI(0, i, 10);
+		TalRM.config_kD(0, d, 10);
 		
-		TalRF.config_kF(0, 0, 0);
-		TalRF.config_kP(0, p, 0);
-		TalRF.config_kI(0, i, 0);
-		TalRF.config_kD(0, d, 0);
-		
-		TalLM.config_kF(0, 0, 0);
-		TalLM.config_kP(0, p, 0);
-		TalLM.config_kI(0, i, 0);
-		TalLM.config_kD(0, d, 0);
-		
-		TalLF.config_kF(0, 0, 0);
-		TalLF.config_kP(0, p, 0);
-		TalLF.config_kI(0, i, 0);
-		TalLF.config_kD(0, d, 0);
+		TalRF.config_kF(0, 0, 10);
+		TalRF.config_kP(0, p, 10);
+		TalRF.config_kI(0, i, 10);
+		TalRF.config_kD(0, d, 10);
+		                      
+		TalLM.config_kF(0, 0, 10);
+		TalLM.config_kP(0, p, 10);
+		TalLM.config_kI(0, i, 10);
+		TalLM.config_kD(0, d, 10);
+		                      
+		TalLF.config_kF(0, 0, 10);
+		TalLF.config_kP(0, p, 10);
+		TalLF.config_kI(0, i, 10);
+		TalLF.config_kD(0, d, 10);
 	}
 
 	public void configOutputs() {
