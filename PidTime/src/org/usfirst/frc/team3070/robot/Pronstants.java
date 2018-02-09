@@ -19,7 +19,7 @@ public interface Pronstants {
 	public final int PORT_ENC_L1 = 7; // Left encoder first port
 	public final int PORT_ENC_L2 = 8; // Left encoder second port
 	
-	public final double PI = 3.142; // Variable equal to pi
+	public final double PI = 3.1415926535897932; // Variable equal to pi
 	public final double WHEEL_DIAMETER = 6; // Distance in inches of wheel diameter
 	public final double WHEEL_CIRCUM = WHEEL_DIAMETER * PI; // Distance in inches of wheel circumference
 	public final double FEET_TO_ENC = 12 * ENCTICKS / WHEEL_CIRCUM;
