@@ -112,13 +112,13 @@ public class Robot extends IterativeRobot implements Pronstants{
 			modules.TalRF.set(ControlMode.Position, Pronstants.feetToEnc(dist));
 			break;
 		case 2:
-			if(angle > 0&&modules.gyro.getHeading() <= angle) {
+			if(angle > 0&& modules.gyro.getHeading() <= angle) {
 				modules.TalRM.set(ControlMode.Velocity, -Pronstants.Vel_100ms);
 				modules.TalRF.set(ControlMode.Follower, PORT_RM);
 				modules.TalLM.set(ControlMode.Velocity, Pronstants.Vel_100ms);
 				modules.TalLF.set(ControlMode.Follower, PORT_LM);
 			}
-			else if(angle < 0&&modules.gyro.getHeading() >= angle){
+			else if(angle < 0&& modules.gyro.getHeading() >= angle){
 				modules.TalRM.set(ControlMode.Velocity, Pronstants.Vel_100ms);
 				modules.TalRF.set(ControlMode.Follower, PORT_RM);
 				modules.TalLM.set(ControlMode.Velocity, -Pronstants.Vel_100ms);

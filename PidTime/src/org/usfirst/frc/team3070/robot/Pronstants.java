@@ -28,4 +28,15 @@ public interface Pronstants {
 			return feet*FEET_TO_ENC;
 	}
 	double Vel_100ms = .3 * 500.0 * 4096 / 600;
+	//robot is 32 1/4 inches by 23 1/2 inches.
+//	16.125 inches by 11.25 inches is center mass
+//	18.86 inches is circumfrence wheel
+//	168 - 16.125= 151.875 to the switch 
+//	151.875/18.86 = 8.05 rots to the switch
+//	8.05*4096 = 32984 enc ticks to the switch  
+//	323.65- 16.125 = 307.525 to the scale
+//	307.525/18=  17.1 rotations to the scale
+//	71.57 is the dis from the wall to the scale.
+//	85.25 is the dis from the wall to the switch.
+
 }
