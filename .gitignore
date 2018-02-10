@@ -11,7 +11,6 @@
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 *.zip
@@ -22,7 +21,6 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 /.metadata
-.classpath
 
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/_1.prx
 *.tis
@@ -30,12 +28,10 @@ hs_err_pid*
 *.frq
 *.nrm
 *.fdt
-2018Stacys_Mom/.classpath
+*build*
 
 *.lock
 .recommenders/index/http___download_eclipse_org_recommenders_models_oxygen_/write.lock
-
-2018Stacys_Mom/.classpath
 
 *.nrm
 *.tis
@@ -50,5 +46,5 @@ hs_err_pid*
 *.frq
 
 .recommenders
-.classpath
+
 .DS_Store
