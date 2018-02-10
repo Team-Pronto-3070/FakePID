@@ -27,7 +27,7 @@ public interface Pronstants {
 	public static double feetToEnc(double feet) {
 			return feet*FEET_TO_ENC;
 	}
-	double Vel_100ms = .3 * 500.0 * 4096 / 600;
+	double Vel_100ms = 500.0 * 4096 / 600;
 	
 //	All calculations are assuming the robot starts as far out l/r as possible.
 	
