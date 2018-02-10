@@ -28,15 +28,30 @@ public interface Pronstants {
 			return feet*FEET_TO_ENC;
 	}
 	double Vel_100ms = .3 * 500.0 * 4096 / 600;
-	//robot is 32 1/4 inches by 23 1/2 inches.
+	
+//	All calculations are assuming the robot starts as far out l/r as possible.
+	
+//	robot is 32 1/4 inches by 23 1/2 inches.
 //	16.125 inches by 11.25 inches is center mass
+//	Bumpers will add 3.25 in to each side, so true dimensions are 19.375 by 14.5
 //	18.86 inches is circumfrence wheel
-//	168 - 16.125= 151.875 to the switch 
-//	151.875/18.86 = 8.05 rots to the switch
-//	8.05*4096 = 32984 enc ticks to the switch  
-//	323.65- 16.125 = 307.525 to the scale
-//	307.525/18=  17.1 rotations to the scale
-//	71.57 is the dis from the wall to the scale.
+	
+//	168 - 19.375= 148.625 to the switch 
+//	148.625/18.86 = 7.88 rots to the switch
+//	7.88*4096 = 32276 enc ticks to the switch  
+	
+//	323.65- 19.375 = 304.275 to the scale
+//	304.275/18 =  16.9 rotations to the scale
+//	16.9*4096 = 69222 enc ticks to the scale
+	
+//	71.57 is the dis from the wall to the scale.  <-What are these? Spencer
 //	85.25 is the dis from the wall to the switch.
-
+	
+//	Horizontal dist. switch to wall = 85.25 in
+//	Angle bit length = 29.69 in
+	
+//	2nd distance to switch = 41.06 in
+	
+//	Horizontal dist. scale to wall = 71.57 in
+//	2nd distance to scale = 27.38 in
 }
