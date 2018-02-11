@@ -25,9 +25,7 @@ public class Robot extends IterativeRobot implements Pronstants{
 	Drive drive;
 	double setpoint, speed;
 	int purpose = 0;
-	double p = 0;
-	double i = 0;
-	double d = 0;
+	double lp, li, ld, lf, rp, ri, rd, rf;
 	//0 is stop, 1 is turn, 2 is drive
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -40,14 +38,45 @@ public class Robot extends IterativeRobot implements Pronstants{
 		SmartDashboard.putNumber("Setpoint", 0);
 		SmartDashboard.putNumber("SpeedL", 0);
 		SmartDashboard.putNumber("SpeedR", 0);
+		
+		
+		SmartDashboard.putNumber("LP", 0);
+		SmartDashboard.putNumber("LI", 0);
+		SmartDashboard.putNumber("LD", 0);
+		SmartDashboard.putNumber("LF", 0);
+		
+		SmartDashboard.putNumber("RP", 0);
+		SmartDashboard.putNumber("RI", 0);
+		SmartDashboard.putNumber("RD", 0);
+		SmartDashboard.putNumber("RF", 0);
+		
+		SmartDashboard.putNumber("Left output", 0);
+		SmartDashboard.putNumber("Right output", 0);
+
+		
 		drive.configOutputs();
-		modules.TalLM.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		modules.TalLF.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		modules.TalRF.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		modules.TalRM.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		SmartDashboard.putNumber("P", 0);
-		SmartDashboard.putNumber("I", 0);
-		SmartDashboard.putNumber("D", 0);
+		modules.TalLM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		modules.TalRM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		
+
+		
+//		modules.TalRM.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
+//		modules.TalLM.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
+		
+	}
+	
+	public void teleopInit() {
+		lp = SmartDashboard.getNumber("LP", 0);
+		li = SmartDashboard.getNumber("LI", 0);
+		ld = SmartDashboard.getNumber("LD", 0);
+		lf = SmartDashboard.getNumber("LF", 0);
+		drive.setLeftPID(lp, li, ld, lf);
+		
+		rp = SmartDashboard.getNumber("RP", 0);
+		ri = SmartDashboard.getNumber("RI", 0);
+		rd = SmartDashboard.getNumber("RD", 0);
+		rf = SmartDashboard.getNumber("RF", 0);
+		drive.setRightPID(rp, ri, rd, rf);
 	}
 
 	@Override
@@ -72,15 +101,21 @@ public class Robot extends IterativeRobot implements Pronstants{
 		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
 		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
 		SmartDashboard.putNumber("EncR", drive.getRightEnc());
-		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0));
-		p = SmartDashboard.getNumber("P", 0);
-		i = SmartDashboard.getNumber("I", 0);
-		d = SmartDashboard.getNumber("D", 0);
+//		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0)/Vel_100ms);
+//		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0)/Vel_100ms);
+		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60 );
+		SmartDashboard.putNumber("SpeedL_last", drive.TalLM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60 );
+
+		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60);
+		SmartDashboard.putNumber("SpeedR_last", drive.TalRM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60);
+		SmartDashboard.putNumber("Left output", drive.TalRM.getMotorOutputPercent());
+		SmartDashboard.putNumber("Right output", drive.TalLM.getMotorOutputPercent());
+
+
 		
-		SmartDashboard.putStringArray("hello", new String[] {"array", "hello again", "some other thing"});
 		
-		drive.setPID(p, i, d);
+		//SmartDashboard.putStringArray("hello", new String[] {"array", "hello again", "some other thing"});
+		
 		if(modules.xbox.getRawButton(1)) {
 			purpose = 1;
 		}
@@ -105,10 +140,11 @@ public class Robot extends IterativeRobot implements Pronstants{
 			drive.stop();
 			break;
 		case 1: 
-			modules.TalRM.set(ControlMode.Velocity, setpoint * Vel_100ms);
-			modules.TalLM.set(ControlMode.Velocity, setpoint * Vel_100ms);
-			modules.TalLF.set(ControlMode.Velocity, setpoint * Vel_100ms);
-			modules.TalRF.set(ControlMode.Velocity, setpoint * Vel_100ms);
+			// 	//double Vel_100ms = 500.0 * 4096 / 600;
+			modules.TalRM.set(ControlMode.Velocity, setpoint * 4096 / 600);
+			modules.TalLM.set(ControlMode.Velocity, setpoint * 4096 / 600);
+			modules.TalLF.set(ControlMode.Follower, PORT_LM);
+			modules.TalRF.set(ControlMode.Follower, PORT_RM);
 			break;
 		case 2:
 			break;
@@ -124,15 +160,15 @@ public class Robot extends IterativeRobot implements Pronstants{
 	 */
 	@Override
 	public void testPeriodic() {
-		setpoint = SmartDashboard.getNumber("Setpoint", 0);
-		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
-		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
-		SmartDashboard.putNumber("EncR", drive.getRightEnc());
-		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0));
-		p = SmartDashboard.getNumber("P", 0);
-		i = SmartDashboard.getNumber("I", 0);
-		d = SmartDashboard.getNumber("D", 0);
+//		setpoint = SmartDashboard.getNumber("Setpoint", 0);
+//		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
+//		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
+//		SmartDashboard.putNumber("EncR", drive.getRightEnc());
+//		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 );
+//		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0) * 10.0 / 4096.0);
+//		p = SmartDashboard.getNumber("P", 0);
+//		i = SmartDashboard.getNumber("I", 0);
+//		d = SmartDashboard.getNumber("D", 0);
 		//String[] test = new String[] {"array", "hello again", "some other thing"};
 		//SmartDashboard.putStringArray("hello", test);
 	}

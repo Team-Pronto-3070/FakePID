@@ -22,19 +22,15 @@ public class Modules implements Pronstants {
 		//setting joystick
 		xbox = new Joystick(JOY_PORT);
 		// setting encoders
-		TalRM.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
-		TalLM.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.QuadEncoder, 0, 0);
+		TalRM.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
+		TalLM.configSelectedFeedbackSensor(com.ctre.phoenix.motorcontrol.FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		// setting gyro
 		gyro = BNO055.getInstance(BNO055.opmode_t.OPERATION_MODE_IMUPLUS, BNO055.vector_type_t.VECTOR_EULER);
 	
 		TalRM.setInverted(false);
-		TalRF.setInverted(false);
 		TalLM.setInverted(false);	
-		TalLF.setInverted(false);
 
-		TalRM.setSensorPhase(false);
-		TalRF.setSensorPhase(false);
+		TalRM.setSensorPhase(true);
 		TalLM.setSensorPhase(true);
-		TalLF.setSensorPhase(true);
 		}
 }
