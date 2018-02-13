@@ -58,7 +58,8 @@ public class Robot extends IterativeRobot implements Pronstants{
 		modules.TalLM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		modules.TalRM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		
-
+		//For test periodic:
+		SmartDashboard.putNumber("percent", 0);
 		
 //		modules.TalRM.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
 //		modules.TalLM.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
@@ -154,22 +155,22 @@ public class Robot extends IterativeRobot implements Pronstants{
 		}
 		
 	}
+	
+	
+	double target; // for test periodic
+	
+	public void testInit() {
+		target = SmartDashboard.getNumber("percent", 0);
+	}
 
 	/**
 	 * This function is called periodically during test mode.
 	 */
 	@Override
 	public void testPeriodic() {
-//		setpoint = SmartDashboard.getNumber("Setpoint", 0);
-//		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
-//		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
-//		SmartDashboard.putNumber("EncR", drive.getRightEnc());
-//		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 );
-//		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0) * 10.0 / 4096.0);
-//		p = SmartDashboard.getNumber("P", 0);
-//		i = SmartDashboard.getNumber("I", 0);
-//		d = SmartDashboard.getNumber("D", 0);
-		//String[] test = new String[] {"array", "hello again", "some other thing"};
-		//SmartDashboard.putStringArray("hello", test);
+		modules.TalRM.set(ControlMode.PercentOutput, target);
+		modules.TalLM.set(ControlMode.PercentOutput, target);
+		modules.TalLF.set(ControlMode.Follower, PORT_LM);
+		modules.TalRF.set(ControlMode.Follower, PORT_RM);
 	}
 }
