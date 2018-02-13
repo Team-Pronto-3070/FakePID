@@ -67,17 +67,7 @@ public class Robot extends IterativeRobot implements Pronstants{
 	}
 	
 	public void teleopInit() {
-		lp = SmartDashboard.getNumber("LP", 0);
-		li = SmartDashboard.getNumber("LI", 0);
-		ld = SmartDashboard.getNumber("LD", 0);
-		lf = SmartDashboard.getNumber("LF", 0);
-		drive.setLeftPID(lp, li, ld, lf);
 		
-		rp = SmartDashboard.getNumber("RP", 0);
-		ri = SmartDashboard.getNumber("RI", 0);
-		rd = SmartDashboard.getNumber("RD", 0);
-		rf = SmartDashboard.getNumber("RF", 0);
-		drive.setRightPID(rp, ri, rd, rf);
 	}
 
 	@Override
@@ -98,6 +88,30 @@ public class Robot extends IterativeRobot implements Pronstants{
 	 */
 	@Override
 	public void teleopPeriodic() {
+		
+	}
+	
+	
+	
+	public void testInit() {
+		lp = SmartDashboard.getNumber("LP", 0);
+		li = SmartDashboard.getNumber("LI", 0);
+		ld = SmartDashboard.getNumber("LD", 0);
+		lf = SmartDashboard.getNumber("LF", 0);
+		drive.setLeftPID(lp, li, ld, lf);
+		
+		rp = SmartDashboard.getNumber("RP", 0);
+		ri = SmartDashboard.getNumber("RI", 0);
+		rd = SmartDashboard.getNumber("RD", 0);
+		rf = SmartDashboard.getNumber("RF", 0);
+		drive.setRightPID(rp, ri, rd, rf);
+	}
+
+	/**
+	 * This function is called periodically during test mode.
+	 */
+	@Override
+	public void testPeriodic() {
 		setpoint = SmartDashboard.getNumber("Setpoint", 0);
 		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
 		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
@@ -143,7 +157,7 @@ public class Robot extends IterativeRobot implements Pronstants{
 		case 1: 
 			// 	//double Vel_100ms = 500.0 * 4096 / 600;
 			modules.TalRM.set(ControlMode.Velocity, setpoint * 4096 / 600);
-			modules.TalLM.set(ControlMode.Velocity, setpoint * 4096 / 600);
+			modules.TalLM.set(ControlMode.Velocity, -setpoint * 4096 / 600);
 			modules.TalLF.set(ControlMode.Follower, PORT_LM);
 			modules.TalRF.set(ControlMode.Follower, PORT_RM);
 			break;
@@ -154,23 +168,5 @@ public class Robot extends IterativeRobot implements Pronstants{
 			drive.setRight(0.5);
 		}
 		
-	}
-	
-	
-	double target; // for test periodic
-	
-	public void testInit() {
-		target = SmartDashboard.getNumber("percent", 0);
-	}
-
-	/**
-	 * This function is called periodically during test mode.
-	 */
-	@Override
-	public void testPeriodic() {
-		modules.TalRM.set(ControlMode.PercentOutput, target);
-		modules.TalLM.set(ControlMode.PercentOutput, target);
-		modules.TalLF.set(ControlMode.Follower, PORT_LM);
-		modules.TalRF.set(ControlMode.Follower, PORT_RM);
 	}
 }
