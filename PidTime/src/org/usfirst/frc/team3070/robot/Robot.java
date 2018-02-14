@@ -57,19 +57,20 @@ public class Robot extends IterativeRobot implements Pronstants{
 		drive.configOutputs();
 		modules.TalLM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
 		modules.TalRM.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0);
-		
-		//For test periodic:
-		SmartDashboard.putNumber("percent", 0);
-		
-//		modules.TalRM.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
-//		modules.TalLM.configVelocityMeasurementPeriod(VelocityMeasPeriod.Period_100Ms, 10);
-		
 	}
 	
 	public void teleopInit() {
 		
 	}
-
+	
+	/**
+	 * This function is called periodically during operator control.
+	 */
+	@Override
+	public void teleopPeriodic() {
+		
+	}
+	
 	@Override
 	public void autonomousInit() {
 		
@@ -82,16 +83,6 @@ public class Robot extends IterativeRobot implements Pronstants{
 	public void autonomousPeriodic() {	
 	
 	}
-
-	/**
-	 * This function is called periodically during operator control.
-	 */
-	@Override
-	public void teleopPeriodic() {
-		
-	}
-	
-	
 	
 	public void testInit() {
 		lp = SmartDashboard.getNumber("LP", 0);
@@ -116,8 +107,6 @@ public class Robot extends IterativeRobot implements Pronstants{
 		SmartDashboard.putNumber("gyro", modules.gyro.getHeading());
 		SmartDashboard.putNumber("EncL", drive.getLeftEnc());
 		SmartDashboard.putNumber("EncR", drive.getRightEnc());
-//		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0)/Vel_100ms);
-//		SmartDashboard.putNumber("SpeedR", drive.TalRM.getSelectedSensorVelocity(0)/Vel_100ms);
 		SmartDashboard.putNumber("SpeedL", drive.TalLM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60 );
 		SmartDashboard.putNumber("SpeedL_last", drive.TalLM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60 );
 
@@ -125,11 +114,6 @@ public class Robot extends IterativeRobot implements Pronstants{
 		SmartDashboard.putNumber("SpeedR_last", drive.TalRM.getSelectedSensorVelocity(0) * 10.0 / 4096.0 * 60);
 		SmartDashboard.putNumber("Left output", drive.TalRM.getMotorOutputPercent());
 		SmartDashboard.putNumber("Right output", drive.TalLM.getMotorOutputPercent());
-
-
-		
-		
-		//SmartDashboard.putStringArray("hello", new String[] {"array", "hello again", "some other thing"});
 		
 		if(modules.xbox.getRawButton(1)) {
 			purpose = 1;
